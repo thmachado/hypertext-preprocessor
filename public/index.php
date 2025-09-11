@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+use App\Files\Json;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 

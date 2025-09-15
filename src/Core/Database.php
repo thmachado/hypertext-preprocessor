@@ -14,7 +14,8 @@ class Database
 
     public static function getInstance(): ?PDO
     {
-        $sqlitePath = __DIR__ . '/../../users.sqlite';
+        $sqliteFile = $_SERVER["DB_SQLITE"] ?? "users.sqlite";
+        $sqlitePath = __DIR__ . '/../../' . $sqliteFile;
 
         if (self::$instance === null) {
             try {

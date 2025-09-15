@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace App\Payment;
 
-use App\Models\User;
 use RuntimeException;
 
 abstract class Bank
 {
     public function __construct(
-        private User $user,
         private float $money
     ) {
     }

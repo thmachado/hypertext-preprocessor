@@ -19,7 +19,7 @@ final class LinuxTest extends TestCase
         exec("ls", $files);
         $result = $this->linux->ls();
 
-        $this->assertIsArray($result);
+        $this->assertNotEmpty($result);
         $this->assertEquals($files, $result);
     }
 
@@ -28,26 +28,26 @@ final class LinuxTest extends TestCase
         exec("ls -la", $files);
         $result = $this->linux->ls("-la");
 
-        $this->assertIsArray($result);
+        $this->assertNotEmpty($result);
         $this->assertEquals($files, $result);
     }
 
     public function testPwd(): void
     {
         $pwd = $this->linux->pwd();
-        $this->assertIsString($pwd);
+        $this->assertNotEmpty($pwd);
         $this->assertEquals(shell_exec("pwd"), $pwd);
     }
 
     public function testPs(): void
     {
-        $this->assertIsArray($this->linux->ps());
+        $this->assertNotEmpty($this->linux->ps());
     }
 
     public function testUptime(): void
     {
         $uptime = $this->linux->uptime();
-        $this->assertIsString($uptime);
+        $this->assertNotEmpty($uptime);
         $this->assertEquals(shell_exec("uptime"), $uptime);
     }
 }

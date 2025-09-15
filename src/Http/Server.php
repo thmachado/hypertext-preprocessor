@@ -6,6 +6,10 @@ namespace App\Http;
 
 class Server
 {
+    /**
+     * Summary of __construct
+     * @param array<string> $server
+     */
     public function __construct(
         private array $server
     ) {

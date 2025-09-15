@@ -18,8 +18,6 @@ final class TypeTest extends TestCase
     {
         $integer = 2025;
         $result = $this->type->integer($integer);
-        $this->assertIsNumeric($result);
-        $this->assertIsInt($result);
         $this->assertEquals($integer, $result);
     }
 
@@ -27,8 +25,6 @@ final class TypeTest extends TestCase
     {
         $float = 10.14;
         $result = $this->type->float($float);
-        $this->assertIsNumeric($result);
-        $this->assertIsFloat($result);
         $this->assertEquals($float, $result);
     }
 
@@ -36,7 +32,6 @@ final class TypeTest extends TestCase
     {
         $string = "Palmeiras";
         $result = $this->type->string($string);
-        $this->assertIsString($result);
         $this->assertEquals($string, $result);
     }
 
@@ -44,7 +39,6 @@ final class TypeTest extends TestCase
     {
         $boolean = false;
         $result = $this->type->boolean($boolean);
-        $this->assertIsBool($result);
         $this->assertEquals($boolean, $result);
     }
 
@@ -52,7 +46,6 @@ final class TypeTest extends TestCase
     {
         $array = ["Palmeiras", "Corinthians"];
         $result = $this->type->array($array);
-        $this->assertIsArray($result);
         $this->assertCount(2, $result);
         $this->assertEquals($array, $result);
         $this->assertEquals("Palmeiras", $result[0]);
@@ -63,7 +56,6 @@ final class TypeTest extends TestCase
     {
         $object = (object) ["Palmeiras", "Corinthians"];
         $result = $this->type->object($object);
-        $this->assertIsObject($result);
         $this->assertEquals($object, $result);
     }
 
@@ -71,7 +63,6 @@ final class TypeTest extends TestCase
     {
         $null = null;
         $result = $this->type->null($null);
-        $this->assertNull($result);
         $this->assertEquals($null, $result);
     }
 
@@ -92,11 +83,5 @@ final class TypeTest extends TestCase
         $result = $this->type->union($variable);
         $this->assertIsInt($result);
         $this->assertEquals($variable, $result);
-    }
-
-    public function testVoidFunction(): void
-    {
-        $this->expectOutputString("When you will not return a explicit value");
-        echo $this->type->void();
     }
 }

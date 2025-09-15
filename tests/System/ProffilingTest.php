@@ -18,28 +18,28 @@ final class ProffilingTest extends TestCase
     {
         $memory = $this->profilling->getMemoryUsage();
         $this->assertEquals(memory_get_usage(), $memory);
-        $this->assertIsInt($memory);
+        $this->assertGreaterThan(0, $memory);
     }
 
     public function testMemoryUsageReal(): void
     {
         $memory = $this->profilling->getMemoryUsage(true);
         $this->assertEquals(memory_get_usage(true), $memory);
-        $this->assertIsInt($memory);
+        $this->assertGreaterThan(0, $memory);
     }
 
     public function testMemoryPeakUsage(): void
     {
         $memory = $this->profilling->getMemoryPeakUsage();
         $this->assertEquals(memory_get_peak_usage(), $memory);
-        $this->assertIsInt($memory);
+        $this->assertGreaterThan(0, $memory);
     }
 
     public function testMemoryPeakUsageReal(): void
     {
         $memory = $this->profilling->getMemoryPeakUsage(true);
         $this->assertEquals(memory_get_peak_usage(true), $memory);
-        $this->assertIsInt($memory);
+        $this->assertGreaterThan(0, $memory);
     }
 
 }

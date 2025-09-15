@@ -9,6 +9,10 @@ use RuntimeException;
 class Upload
 {
     private int $maxSize = 100000;
+    /**
+     * Summary of disallowedFileExtensions
+     * @var array<string> $disallowedFileExtensions
+     */
     private $disallowedFileExtensions = [
         "exe",
         "sh",
@@ -22,6 +26,10 @@ class Upload
         "asp",
         "py"
     ];
+    /**
+     * Summary of disallowedMimeTypes
+     * @var array<string> $disallowedMimeTypes
+     */
     private $disallowedMimeTypes = [
         "application/x-msdownload",
         "application/x-sh",
@@ -34,6 +42,10 @@ class Upload
     ];
     private string $path = __DIR__ . "/../../storage/";
 
+    /**
+     * Summary of __construct
+     * @param array<mixed> $file
+     */
     public function __construct(
         private array $file = []
     ) {

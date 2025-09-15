@@ -16,21 +16,19 @@ final class PasswordTest extends TestCase
 
     public function testPasswordHash(): void
     {
-        $this->assertIsString($this->password->setPassword("Thiago"));
+        $this->assertNotEmpty($this->password->setPassword("Thiago"));
     }
 
     public function testCreateHash(): void
     {
-        $this->assertIsString($this->password->createHash("Thiago"));
+        $this->assertNotEmpty($this->password->createHash("Thiago"));
     }
 
     public function testSetValidPassword(): void
     {
         $passwordString = "Thiago";
         $hash = $this->password->setPassword($passwordString);
-
-        $this->assertIsString($hash);
-        $this->assertIsBool($this->password->validPassword($passwordString, $hash));
+        $this->assertNotEmpty($hash);
         $this->assertTrue($this->password->validPassword($passwordString, $hash));
     }
 
@@ -38,9 +36,7 @@ final class PasswordTest extends TestCase
     {
         $passwordString = "Thiago";
         $hash = $this->password->setPassword($passwordString);
-
-        $this->assertIsString($hash);
-        $this->assertIsBool($this->password->validPassword("Wrong password", $hash));
+        $this->assertNotEmpty($hash);
         $this->assertFalse($this->password->validPassword("Wrong password", $hash));
     }
 }

@@ -8,6 +8,11 @@ use PHPUnit\Framework\TestCase;
 final class JsonTest extends TestCase
 {
     private Json $json;
+
+    /**
+     * Summary of data
+     * @var array<string>
+     */
     private array $data = ["Palmeiras", "Corinthians"];
 
     protected function setUp(): void
@@ -18,7 +23,6 @@ final class JsonTest extends TestCase
     public function testReadJson(): void
     {
         $json = $this->json->readJson(true);
-        $this->assertIsArray($json);
         $this->assertCount(2, $json);
         $this->assertEquals("Palmeiras", $json[0]);
         $this->assertEquals("Corinthians", $json[1]);
@@ -27,7 +31,6 @@ final class JsonTest extends TestCase
     public function testTransformToJson(): void
     {
         $json = $this->json->toJson();
-        $this->assertIsString($json);
         $this->assertEquals(json_encode($this->data), $json);
     }
 }

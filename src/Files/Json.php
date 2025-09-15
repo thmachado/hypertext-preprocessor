@@ -6,11 +6,20 @@ namespace App\Files;
 
 class Json
 {
+    /**
+     * Summary of __construct
+     * @param array<string> $data
+     */
     public function __construct(
         private array $data = ["Palmeiras", "Corinthians", "Santos", "São Paulo"]
     ) {
     }
 
+    /**
+     * Summary of readJson
+     * @param bool $associative
+     * @return array<string>
+     */
     public function readJson(bool $associative = true): array
     {
         return json_decode($this->toJson(), $associative);
@@ -18,6 +27,11 @@ class Json
 
     public function toJson(): string
     {
-        return json_encode($this->data);
+        $json = json_encode($this->data);
+        if ($json === false) {
+            return "";
+        }
+
+        return $json;
     }
 }

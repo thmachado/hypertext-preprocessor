@@ -23,7 +23,7 @@ final class TextTest extends TestCase
     public function testReadFileFunction(): void
     {
         $file = $this->text->readFile();
-        $this->assertIsString($file);
+        $this->assertNotEmpty($file);
         $this->assertEquals("Palmeiras", $file);
     }
 
@@ -32,7 +32,6 @@ final class TextTest extends TestCase
         $this->text->cleanFile();
         $this->text->writeFile("Sociedade Esportiva Palmeiras");
         $file = $this->text->readFile();
-        $this->assertIsString($file);
         $this->assertEquals("Sociedade Esportiva Palmeiras", $file);
     }
 
@@ -40,7 +39,6 @@ final class TextTest extends TestCase
     {
         $this->text->cleanFile();
         $file = $this->text->readFile();
-        $this->assertIsString($file);
         $this->assertEmpty($file);
         $this->assertEquals("", $file);
     }

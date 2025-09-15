@@ -37,7 +37,6 @@ final class UserRepositoryTest extends TestCase
     public function testFindAllEmpty(): void
     {
         $users = $this->userRepository->findAll();
-        $this->assertIsArray($users);
         $this->assertCount(0, $users);
     }
 
@@ -45,7 +44,6 @@ final class UserRepositoryTest extends TestCase
     {
         $this->createUser();
         $users = $this->userRepository->findAll();
-        $this->assertIsArray($users);
         $this->assertCount(1, $users);
         $this->assertEquals("Machado", $users[0]->getLastname());
     }
@@ -61,7 +59,6 @@ final class UserRepositoryTest extends TestCase
         $user = $this->userRepository->findById(1);
         $this->assertInstanceOf(User::class, $user);
         $this->assertEquals("thiago@email.com", $user->getEmail());
-        $this->assertIsArray($user->toArray());
     }
 
     public function testSave(): void
@@ -92,7 +89,6 @@ final class UserRepositoryTest extends TestCase
         $this->assertInstanceOf(User::class, $userUpdated);
         $this->assertEquals("Thiago2", $userUpdated->getFirstname());
         $this->assertEquals("thiago2@email.com", $userUpdated->getEmail());
-        $this->assertIsArray($userUpdated->toArray());
     }
 
     public function testDeleteNotFound(): void

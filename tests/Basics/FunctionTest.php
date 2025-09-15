@@ -18,7 +18,7 @@ final class FunctionTest extends TestCase
     {
         $string = "Thiago";
         $result = $this->function->anonymous($string);
-        $this->assertIsString($result);
+        $this->assertNotEmpty($result);
         $this->assertEquals($string, $result);
     }
 
@@ -26,14 +26,15 @@ final class FunctionTest extends TestCase
     {
         $number = 5;
         $result = $this->function->arrow($number);
-        $this->assertIsNumeric($result);
         $this->assertEquals($number * 5, $result);
     }
 
     public function testVariadicFunction(): void
     {
+        /**
+         * @var array<int, array<string>> $data
+         */
         $data = $this->function->variadic(["Palmeiras", "Corinthians"], ["Grêmio", "Internacional"], ["Atlético-MG", "Cruzeiro"], ["Flamengo", "Vasco"]);
-        $this->assertIsArray($data);
         $this->assertCount(4, $data);
         $this->assertCount(2, $data[0]);
         $this->assertCount(2, $data[3]);

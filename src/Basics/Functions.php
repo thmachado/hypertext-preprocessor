@@ -21,6 +21,11 @@ class Functions
         return $result($number);
     }
 
+    /**
+     * Summary of variadic
+     * @param array<mixed> $data
+     * @return array<mixed>
+     */
     public function variadic(...$data): array
     {
         return array_merge($data);

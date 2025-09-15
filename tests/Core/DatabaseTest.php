@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DatabaseTest extends TestCase
 {
-    private ?PDO $pdo;
+    private PDO $pdo;
 
     protected function setUp(): void
     {
@@ -19,16 +19,14 @@ final class DatabaseTest extends TestCase
             email TEXT NOT NULL)");
     }
 
-    protected function tearDown(): void
-    {
-        $this->pdo = null;
-    }
-
     public function testDatabaseSelectEmpty(): void
     {
-        $users = $this->pdo->query("SELECT id, firstname, lastname, email FROM users ORDER BY firstname, lastname ASC")->fetchAll();
-        $this->assertIsArray($users);
-        $this->assertCount(0, $users);
+        $usersQuery = $this->pdo->query("SELECT id, firstname, lastname, email FROM users ORDER BY firstname, lastname ASC");
+        if ($usersQuery === false) {
+            throw new RuntimeException("Query is failed");
+        }
+
+        $this->assertCount(0, $usersQuery->fetchAll());
     }
 
     public function testDatabaseSelectContent(): void
@@ -39,8 +37,16 @@ final class DatabaseTest extends TestCase
         $stmt->bindValue(":email", "thiago@email.com", PDO::PARAM_STR);
         $stmt->execute();
 
-        $users = $this->pdo->query("SELECT lastname FROM users ORDER BY firstname, lastname ASC")->fetchAll();
-        $this->assertIsArray($users);
+        $usersQuery = $this->pdo->query("SELECT lastname FROM users ORDER BY firstname, lastname ASC");
+        if ($usersQuery === false) {
+            throw new RuntimeException("Query is failed");
+        }
+
+        /**
+         * @var array<int, array<string>> $users
+         */
+        $users = $usersQuery->fetchAll(PDO::FETCH_ASSOC);
+
         $this->assertCount(1, $users);
         $this->assertEquals("Machado", $users[0]["lastname"]);
     }
@@ -67,14 +73,25 @@ final class DatabaseTest extends TestCase
 
     public function testDatabaseInsert(): void
     {
-        $countInitial = $this->pdo->query("SELECT COUNT(id) FROM users")->fetchColumn();
+        $countInitialQuery = $this->pdo->query("SELECT COUNT(id) FROM users");
+        if ($countInitialQuery === false) {
+            throw new RuntimeException("Query is failed");
+        }
+
+        $countInitial = $countInitialQuery->fetchColumn();
+
         $stmt = $this->pdo->prepare("INSERT INTO users (firstname, lastname, email) VALUES (:firstname, :lastname, :email)");
         $stmt->bindValue(":firstname", "Thiago", PDO::PARAM_STR);
         $stmt->bindValue(":lastname", "Machado", PDO::PARAM_STR);
         $stmt->bindValue(":email", "thiago@email.com", PDO::PARAM_STR);
         $result = $stmt->execute();
 
-        $countFinal = $this->pdo->query("SELECT COUNT(id) FROM users")->fetchColumn();
+        $countFinalQuery = $this->pdo->query("SELECT COUNT(id) FROM users");
+        if ($countFinalQuery === false) {
+            throw new RuntimeException("Query is failed");
+        }
+
+        $countFinal = $countFinalQuery->fetchColumn();
 
         $this->assertEquals(0, $countInitial);
         $this->assertEquals(1, $countFinal);
@@ -118,14 +135,24 @@ final class DatabaseTest extends TestCase
         $stmt->execute();
         $userid = (int) $this->pdo->lastInsertId();
 
-        $countInitial = $this->pdo->query("SELECT COUNT(id) FROM users")->fetchColumn();
+        $countInitialQuery = $this->pdo->query("SELECT COUNT(id) FROM users");
+        if ($countInitialQuery === false) {
+            throw new RuntimeException("Query is failed");
+        }
+
+        $countInitial = $countInitialQuery->fetchColumn();
 
         $stmt = $this->pdo->prepare("DELETE FROM users WHERE id = :id");
         $stmt->bindValue(":id", $userid, PDO::PARAM_INT);
         $result = $stmt->execute();
         $rowCount = $stmt->rowCount();
 
-        $countFinal = $this->pdo->query("SELECT COUNT(id) FROM users")->fetchColumn();
+        $countFinalQuery = $this->pdo->query("SELECT COUNT(id) FROM users");
+        if ($countFinalQuery === false) {
+            throw new RuntimeException("Query failed");
+        }
+
+        $countFinal = $countFinalQuery->fetchColumn();
 
         $this->assertEquals(1, $rowCount);
         $this->assertEquals(1, $countInitial);

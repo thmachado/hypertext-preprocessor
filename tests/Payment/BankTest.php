@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Models\User;
 use App\Payment\Nubank;
 use App\Payment\Picpay;
 use PHPUnit\Framework\TestCase;
@@ -14,8 +13,8 @@ final class BankTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->nubank = new Nubank(new User("Thiago", "Machado", "thiago@nubank.com"), 10000);
-        $this->picpay = new Picpay(new User("Raphael", "Veiga", "raphaelveiga@email.com"), 15000);
+        $this->nubank = new Nubank(10000);
+        $this->picpay = new Picpay(15000);
     }
 
     public function testDepositLessThanZero(): void
@@ -29,9 +28,6 @@ final class BankTest extends TestCase
     {
         $nubank = $this->nubank->deposit(500);
         $picpay = $this->picpay->deposit(100);
-
-        $this->assertIsFloat($nubank);
-        $this->assertIsFloat($picpay);
         $this->assertEquals(10500, $nubank);
         $this->assertEquals(15100, $picpay);
     }
@@ -54,9 +50,6 @@ final class BankTest extends TestCase
     {
         $nubank = $this->nubank->withdraw(500);
         $picpay = $this->picpay->withdraw(100);
-
-        $this->assertIsFloat($nubank);
-        $this->assertIsFloat($picpay);
         $this->assertEquals(9500, $nubank);
         $this->assertEquals(14900, $picpay);
     }
@@ -79,21 +72,14 @@ final class BankTest extends TestCase
     {
         $picpay = $this->picpay->transfer($this->nubank, 500);
         $nubank = $this->nubank->transfer($this->picpay, 500);
-
-        $this->assertIsFloat($picpay);
-        $this->assertIsFloat($nubank);
         $this->assertEquals(14500, $picpay);
         $this->assertEquals(10000, $nubank);
-
     }
 
     public function testBalance(): void
     {
         $nubank = $this->nubank->balance();
         $picpay = $this->picpay->balance();
-
-        $this->assertIsFloat($nubank);
-        $this->assertIsFloat($picpay);
         $this->assertEquals(15000, $picpay);
         $this->assertEquals(10000, $nubank);
     }

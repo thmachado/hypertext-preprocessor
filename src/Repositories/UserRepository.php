@@ -17,7 +17,12 @@ class UserRepository implements UserRepositoryInterface
     public function findAll(): array
     {
         $userList = [];
-        $users = $this->pdo->query("SELECT id, firstname, lastname, email FROM users ORDER BY firstname, lastname ASC")->fetchAll();
+        $usersQuery = $this->pdo->query("SELECT id, firstname, lastname, email FROM users ORDER BY firstname, lastname ASC");
+        if ($usersQuery === false) {
+            return [];
+        }
+
+        $users = $usersQuery->fetchAll();
         foreach ($users as $user) {
             $userModel = new User($user["firstname"], $user["lastname"], $user["email"]);
             $userModel->setId($user["id"]);
@@ -79,7 +84,7 @@ class UserRepository implements UserRepositoryInterface
         $stmt->bindValue(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
 
-        if($stmt->rowCount() === 0){
+        if ($stmt->rowCount() === 0) {
             return false;
         }
 

@@ -15,6 +15,10 @@ class Database
     public static function getInstance(): ?PDO
     {
         $sqliteFile = $_SERVER["DB_SQLITE"] ?? "users.sqlite";
+        if (is_string($sqliteFile) === false) {
+            throw new RuntimeException("sqlite environment variable is not defined");
+        }
+        
         $sqlitePath = __DIR__ . '/../../' . $sqliteFile;
 
         if (self::$instance === null) {

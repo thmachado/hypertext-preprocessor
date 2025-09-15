@@ -23,7 +23,6 @@ final class CurlTest extends TestCase
     public function testCurlGet(): void
     {
         $data = $this->curl->get("https://jsonplaceholder.typicode.com/todos/");
-        $this->assertIsArray($data);
         $this->assertArrayHasKey("userId", $data[0]);
         $this->assertArrayHasKey("title", $data[0]);
         $this->assertArrayHasKey("userId", $data[1]);
@@ -47,7 +46,6 @@ final class CurlTest extends TestCase
             ]
         );
 
-        $this->assertIsArray($data);
         $this->assertArrayHasKey("userId", $data);
         $this->assertArrayHasKey("title", $data);
         $this->assertArrayHasKey("body", $data);

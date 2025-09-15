@@ -8,51 +8,56 @@ class Type
 {
     public function integer(int $number): int
     {
-        return $number ?? 1914;
+        return $number;
     }
 
     public function float(float $amount): float
     {
-        return $amount ?? 19.14;
+        return $amount;
     }
 
     public function string(string $string): string
     {
-        return $string ?? "";
+        return $string;
     }
 
     public function boolean(bool $boolean): bool
     {
-        return $boolean ?? true;
+        return $boolean;
     }
 
+    /**
+     * Summary of array
+     * @param array<mixed> $array
+     * @return array<mixed>
+     */
     public function array(array $array): array
     {
-        return $array ?? [];
+        return $array;
     }
 
     public function object(object $object): object
     {
-        return $object ?? (object) [];
+        return $object;
     }
 
     public function null(null $null): null
     {
-        return $null ?? null;
+        return $null;
     }
 
     public function callable(callable $callback): mixed
     {
         return call_user_func($callback);
     }
-
+    
+    /**
+     * Summary of union
+     * @param array<int|string>|string|int $variable
+     * @return array<int|string>|string|int
+     */
     public function union(array|string|int $variable): mixed
     {
         return $variable;
-    }
-
-    public function void(): void
-    {
-        echo "When you will not return a explicit value";
     }
 }

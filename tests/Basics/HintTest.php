@@ -17,14 +17,14 @@ final class HintTest extends TestCase
     public function testMatchFunction(): void
     {
         $message = $this->hint->match(400);
-        $this->assertIsString($message);
+        $this->assertNotEmpty($message);
         $this->assertEquals("User not found", $message);
     }
 
     public function testNamedArgumentsFunction(): void
     {
         $name = $this->hint->named(email: "thiago@email.com", lastname: "Machado", firstname: "Thiago");
-        $this->assertIsString($name);
+        $this->assertNotEmpty($name);
         $this->assertEquals("Thiago Machado thiago@email.com", $name);
     }
 }

@@ -8,7 +8,7 @@ use RuntimeException;
 
 class User
 {
-    private ?int $id;
+    private int $id;
 
     public function __construct(
         private string $firstname,
@@ -61,6 +61,10 @@ class User
         return $this->email;
     }
 
+    /**
+     * Summary of toArray
+     * @return array<string>
+     */
     public function toArray(): array
     {
         return [

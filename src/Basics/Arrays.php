@@ -6,6 +6,10 @@ namespace App\Basics;
 
 class Arrays
 {
+    /**
+     * Summary of __construct
+     * @param array<string> $data
+     */
     public function __construct(
         public array $data = ["Palmeiras", "Corinthians", "Santos", "São Paulo"]
     ) {}
@@ -15,6 +19,11 @@ class Arrays
         return array_push($this->data, $content);
     }
 
+    /**
+     * Summary of merge
+     * @param array<string> $data
+     * @return array<string>
+     */
     public function merge(array $data): array
     {
         return array_merge($this->data, $data);
@@ -30,6 +39,10 @@ class Arrays
         return array_shift($this->data);
     }
 
+    /**
+     * Summary of map
+     * @return array<string>
+     */
     public function map(): array
     {
         return array_map(function ($value) {
@@ -37,6 +50,10 @@ class Arrays
         }, $this->data);
     }
 
+    /**
+     * Summary of filter
+     * @return array<string>
+     */
     public function filter(): array
     {
         return array_filter($this->data, function ($value) {

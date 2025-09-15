@@ -8,4 +8,4 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
 define("LANGUAGE", "PHP - Hypertext-Preprocessor ♥");
-echo "My interpretation about " . LANGUAGE;
+echo "My interpretation of " . LANGUAGE;
